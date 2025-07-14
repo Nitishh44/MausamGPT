@@ -192,3 +192,12 @@ body, input, button, #weatherCard, h1 {
   font-weight: bold;
   color: #000;
 }
+#detectLocationBtn {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+}

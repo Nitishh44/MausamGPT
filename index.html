@@ -12,8 +12,10 @@
     <div class="left-section">
       <h1>MausamGPT</h1>
     <input type = "text"
-    id="cityInput" placeholder="Enter city name" />
+    id="cityInput" list="citySuggestions" placeholder="Enter city name" autocomplete="off"/>
+    <datalist id="citySuggestions"></datalist>
     <button onclick="getWeather()">Search</button>
+    <button id="detectLocationBtn">Detect My Location</button>
     <div id="weatherCard" class="hidden"></div>
     </div>
     <div class="right-section">
@@ -45,5 +47,6 @@
   </div>
   
   <script src="script.js"></script> 
+  <script src="config.js"></script>
 </body>
 </html>
