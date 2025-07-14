@@ -21,17 +21,35 @@ async function getWeather() {
   }
   
 }
-function showWeather(data) {
+
+  function showWeather(data) {
   const card = document.getElementById("weatherCard");
   card.classList.remove("hidden");
 
   card.innerHTML = `
     <h2>${data.name}, ${data.sys.country}</h2>
     <p>${data.weather[0].description}</p>
-    <p>🌡 Temperature: ${(data.main.temp - 273.15).toFixed(2)}°C</p>
-    <p>💧 Humidity: ${data.main.humidity}%</p>
-    <p>🌬 Wind: ${data.wind.speed} m/s</p>
-    <p> Pressure: ${data.main.pressure} hPa</p>
-    <p> Sunrise: ${new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p>
+    
   `;
+
+  // ✅ Update today's highlights
+  const temp = document.getElementById("temperature");
+  if (temp) temp.textContent = `${data.main.temp.toFixed(1)}°C`;
+
+  const humidity = document.getElementById("humidity");
+  if (humidity) humidity.textContent =` ${data.main.humidity}%`;
+
+  const wind = document.getElementById("wind");
+  if (wind) wind.textContent = `${data.wind.speed} m/s`;
+
+  const pressure = document.getElementById("pressure");
+  if (pressure) pressure.textContent = `${data.main.pressure} hPa`;
+
+  const sunrise = document.getElementById("sunrise");
+  if (sunrise) {
+    const time = new Date(data.sys.sunrise * 1000);
+    const hrs = time.getHours().toString().padStart(2, "0");
+    const min = time.getMinutes().toString().padStart(2, "0");
+    sunrise.textContent = `${hrs}:${min} AM`;
+  }
 }
