@@ -130,3 +130,47 @@ async function getWeatherByCoords(lat, lon) {
   console.error("Error fetching weather by location:", error);
  }
 }
+document.addEventListener("DOMContentLoaded", function () {
+
+// Open chatbot
+ const chatbotIcon = document.getElementById("chatbotIcon");
+ const chatbotWindow = document.getElementById("chatbotWindow");
+ const closeBtn = document.getElementById("closeChatbotBtn");
+
+ chatbotIcon.addEventListener("click", () => {
+  chatbotWindow.classList.toggle("hidden");
+ });
+
+// Close chatbot
+closeBtn.addEventListener("click", () => {
+  chatbotWindow.classList.add("hidden");
+});
+});
+
+// Handle chat
+function sendChat() {
+  const input = document.getElementById("chatInput");
+  const message = input.value.trim();
+  const chatBox = document.getElementById("chatMessages");
+
+  if (!message) return;
+
+  // Show user message
+  const userMsg = document.createElement("div");
+  userMsg.textContent = "You: " + message;
+  chatBox.appendChild(userMsg);
+
+  // Show bot reply
+  const botMsg = document.createElement("div");
+  botMsg.textContent = "MausamGPT: " + getFakeResponse(message);
+  chatBox.appendChild(botMsg);
+
+  input.value = "";
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function getFakeResponse(msg) {
+  if (msg.toLowerCase().includes("rain")) return "Yes, it's expected to rain ☔";
+  if (msg.toLowerCase().includes("temperature")) return "Current temperature is 33°C 🌡";
+  return "I'm still learning! Try asking about weather.";
+}

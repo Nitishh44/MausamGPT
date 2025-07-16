@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+  content="MausamGPT - Live Weather App with AI & Auto Location Detection">
+  <link rel="icon" href="favicon.png"
+  type="image/png"/>
   <title>MausamGPT</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" href="https://cdnjs.cloudflare.com/a/jax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet"
+   href="style.css" /> 
+   <link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/a/jax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class = "app-container">
@@ -45,8 +50,27 @@
       </div>
     </div>
   </div>
+
+  
+  
+  <script src="config.js"></script>
   
   <script src="script.js"></script> 
-  <script src="config.js"></script>
+
+  <div id="chatbotIcon">
+    <img src="chatbot.jpg" alt="Chatbot Icon"/>
+  </div>
+  <div id="chatbotWindow" class="hidden">
+    <div class="chatbot-header">
+      <h3>MausamGPT</h3>
+      
+    </div>
+    <div id="chatMessage" class="chat-message"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Ask something"/>
+      <button id="chatSendBtn">Send</button>
+    </div>
+  </div>
+  
 </body>
 </html>
