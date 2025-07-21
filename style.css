@@ -157,26 +157,33 @@ h1 {
 .search-container input {
   padding: 0.75rem 1rem;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: none;
   outline: none;
   font-size: 1rem;
   min-width: 240px;
-  background-color: #ffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+.search-container input:focus {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
 }
 .search-container button {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 10px;
-  background-color: #4a90e2;
+  background: linear-gradient(135deg, #4a90e2, #7b1fa2);
   color: white;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba rgba(0, 0, 0, 0.1);
 }
 .search-container button:hover {
-  background-color: #3578c6;
+  background: linear-gradient(135deg, #3578c6, #4a148c);
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.6);
 }
 body, input, button, #weatherCard, h1 {
   transition: all 0.3s ease-in-out;
@@ -228,9 +235,9 @@ body, input, button, #weatherCard, h1 {
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  z-index: 1000;
+  font-family: 'poppins', sans-serif;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.01);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   justify-content: space-between;
 }
 .hidden {
@@ -240,9 +247,9 @@ body, input, button, #weatherCard, h1 {
   background-color: #4a90e2;
   color: white;
   padding: 10px;
-  display: flex;
   align-items: center;
   justify-content: space-between;
+  font-weight: bold;
 }
 .chatbot-header button {
   background: none;
@@ -253,10 +260,14 @@ body, input, button, #weatherCard, h1 {
   align-items: center;
 }
 .chat-messages {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 300px;
   padding: 10px;
   overflow-y: auto;
   font-size: 14px;
+  background: #f9f9f9;
 }
 .chatbot-input {
   display: flex;
@@ -285,4 +296,61 @@ body, input, button, #weatherCard, h1 {
 }
 #chatbotWindow.hidden {
   display: none;
+}
+.chat-messages div {
+  max-width: 75%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.chat-messages .user {
+  align-self: flex-end;
+  padding: 8px 12px;
+  background: #4a90e2;
+  color: #fff;
+  max-width: 70%;
+  border-radius: 12px 12px 0 12px;
+}
+.chat-messages .bot {
+  background: #e5e5ea;
+  color: #000;
+  align-self: flex-start;
+  max-width: 70%;
+  border-radius: 12px 12px 12px 0;
+  padding: 8px 12px;
+}
+.header {
+  text-align: center;
+  padding: 9 rem 11rem;
+  background: linear-gradient(135deg, #4a90e2, #7b1fa2);
+  color: white;
+  border-radius: 0 0 20px 20px;
+}
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.header p {
+  font-size: 1.6rem;
+  opacity: 0.6;
+}
+#weatherCard, #chatbotWindow {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2)
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px);}
+  100% {opacity: 1; transform: translateY(0);}
+
+}
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+.typing {
+  font-style: italic;
+  opacity: 0.75;
+  color: #777;
 }

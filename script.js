@@ -21,16 +21,21 @@ async function getWeather() {
   }
   
 }
+let lastWeatherData = null;
 
   function showWeather(data) {
+    lastWeatherData = data;
   const card = document.getElementById("weatherCard");
   card.classList.remove("hidden");
+  card.classList.add("fade-in");
 
   card.innerHTML = `
     <h2>${data.name}, ${data.sys.country}</h2>
     <p>${data.weather[0].description}</p>
     
   `;
+  card.classList.remove("hidden");
+  card.classList.add("fade-in");
 
   // ✅ Update today's highlights
   const temp = document.getElementById("temperature");
@@ -130,47 +135,77 @@ async function getWeatherByCoords(lat, lon) {
   console.error("Error fetching weather by location:", error);
  }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
+  const chatbotIcon   = document.getElementById("chatbotIcon");
+  const chatbotWindow = document.getElementById("chatbotWindow");
+  const sendBtn       = document.getElementById("chatSendBtn");
+  const inputEl       = document.getElementById("chatInput");
 
-// Open chatbot
- const chatbotIcon = document.getElementById("chatbotIcon");
- const chatbotWindow = document.getElementById("chatbotWindow");
- const closeBtn = document.getElementById("closeChatbotBtn");
+  // --- safety checks ---
+  if (!chatbotIcon || !chatbotWindow) {
+    console.warn("Chatbot icon/window missing in HTML.");
+    return;
+  }
+  if (!sendBtn || !inputEl) {
+    console.warn("Chat input or send button missing.");
+  }
 
- chatbotIcon.addEventListener("click", () => {
-  chatbotWindow.classList.toggle("hidden");
- });
+  // open/close toggle
+  chatbotIcon.addEventListener("click", () => {
+    chatbotWindow.classList.toggle("hidden");
+  });
 
-// Close chatbot
-closeBtn.addEventListener("click", () => {
-  chatbotWindow.classList.add("hidden");
+  // send on click
+  if (sendBtn) {
+    sendBtn.addEventListener("click", sendChat);
+  }
+
+  // send on Enter
+  if (inputEl) {
+    inputEl.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendChat();
+      }
+    });
+  }
 });
-});
+function addBubble(text, type) {
+  const chatBox = document.getElementById("chatMessages");
+  if (!chatBox) return;
+  const bubble = document.createElement("div");
+  bubble.classList.add ("bubble", type, "fade-in");
+  bubble.textContent = text;
+  chatBox.appendChild(bubble);
+  bubble.className = "bubble " + type;
+  chatBox.scrollTop = chatBox.scrollHeight;
+  bubble.classList.add("fade-in");
+}
 
-// Handle chat
-function sendChat() {
+ async function sendChat() {
   const input = document.getElementById("chatInput");
   const message = input.value.trim();
   const chatBox = document.getElementById("chatMessages");
-
   if (!message) return;
+ chatBox.innerHTML += `<div>You: ${message}</div>`;
+ input.value = "";
 
-  // Show user message
-  const userMsg = document.createElement("div");
-  userMsg.textContent = "You: " + message;
-  chatBox.appendChild(userMsg);
+ const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body:
+      JSON.stringify({ message })
+ });
 
-  // Show bot reply
-  const botMsg = document.createElement("div");
-  botMsg.textContent = "MausamGPT: " + getFakeResponse(message);
-  chatBox.appendChild(botMsg);
-
-  input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
+ const data = await res.json();
+ chatBox.innerHTML += `<div>MausamGPT: ${data.reply}</div>`
 }
 
 function getFakeResponse(msg) {
-  if (msg.toLowerCase().includes("rain")) return "Yes, it's expected to rain ☔";
-  if (msg.toLowerCase().includes("temperature")) return "Current temperature is 33°C 🌡";
+  msg = String(msg || "");
+  msg = msg.toLowerCase();
+  if (msg.includes("rain"))         return "Yes, it's expected to rain ☔";
+  if (msg.includes("temperature"))  return "Current temperature is 33°C 🌡";
   return "I'm still learning! Try asking about weather.";
 }

@@ -13,6 +13,10 @@
    href="https://cdnjs.cloudflare.com/a/jax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
+  <header class="header">
+    <h1>MausamGPT</h1>
+    <p>Your AI-Powered Weather Assistant</p>
+  </header>
   <div class = "app-container">
     <div class="left-section">
       <h1>MausamGPT</h1>
@@ -60,15 +64,13 @@
   <div id="chatbotIcon">
     <img src="chatbot.jpg" alt="Chatbot Icon"/>
   </div>
+
   <div id="chatbotWindow" class="hidden">
-    <div class="chatbot-header">
-      <h3>MausamGPT</h3>
-      
-    </div>
-    <div id="chatMessage" class="chat-message"></div>
+    <div class="chatbot-header">MausamGPT</div>
+    <div id="chatMessages" class="chat-messages"></div>
     <div class="chatbot-input">
-      <input type="text" id="chatInput" placeholder="Ask something"/>
-      <button id="chatSendBtn">Send</button>
+      <input type="text" id="chatInput" placeholder="Ask something" autocomplete="off"/>
+      <button  id="chatSendBtn" type="button">Send</button>
     </div>
   </div>
   
